@@ -3,6 +3,10 @@ import { auth } from '@/lib/auth';
 import { getAffiliateStats, getUserAffiliateTracking } from '@/lib/affiliate-tracker';
 import { handleApiError, AuthenticationError } from '@/lib/api-errors';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET(request: NextRequest) {
   try {
     const sessionResponse = await auth.api.getSession({
@@ -29,4 +33,3 @@ export async function GET(request: NextRequest) {
     return handleApiError(error);
   }
 }
-
