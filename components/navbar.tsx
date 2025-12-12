@@ -6,6 +6,7 @@ import { useSession, signOut } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useCustomer } from '@/hooks/useAutumnCustomer';
+import { WalletDisplay } from '@/components/credits/wallet-display';
 
 // Separate component that only renders when Autumn is available
 function UserCredits() {
@@ -47,13 +48,9 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <Image
-                src="/firecrawl-logo-with-fire.webp"
-                alt="Firecrawl"
-                width={120}
-                height={25}
-                priority
-              />
+              <span className="text-2xl font-bold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
+                GEO on Fire
+              </span>
             </Link>
           </div>
 
@@ -81,7 +78,7 @@ export function Navbar() {
               Plans
             </Link>
             {session && (
-              <UserCredits />
+              <WalletDisplay />
             )}
             {isPending ? (
               <div className="text-sm text-gray-400">Loading...</div>

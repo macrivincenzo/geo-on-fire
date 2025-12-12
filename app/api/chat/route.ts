@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
-import { Autumn } from 'autumn-js';
 import { db } from '@/lib/db';
 import { conversations, messages } from '@/lib/db/schema';
 import { eq, and, desc } from 'drizzle-orm';
+import { checkCredits, deductCredits } from '@/lib/credits-manager';
 import { 
   AuthenticationError, 
   InsufficientCreditsError, 
@@ -13,17 +13,12 @@ import {
   handleApiError 
 } from '@/lib/api-errors';
 import { 
-  FEATURE_ID_MESSAGES, 
   CREDITS_PER_MESSAGE,
   ERROR_MESSAGES,
   ROLE_USER,
   ROLE_ASSISTANT,
   UI_LIMITS
 } from '@/config/constants';
-
-const autumn = new Autumn({
-  apiKey: process.env.AUTUMN_SECRET_KEY!,
-});
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,47 +42,29 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Check if user has access to use the chat
-    try {
-      console.log('Checking access for:', {
-        userId: sessionResponse.user.id,
-        featureId: 'messages',
-      });
-      
-      const access = await autumn.check({
-        customer_id: sessionResponse.user.id,
-        feature_id: FEATURE_ID_MESSAGES,
-      });
-      
-      console.log('Access check result:', access);
-
-      if (!access.data?.allowed) {
-        console.log('Access denied - no credits remaining');
-        throw new InsufficientCreditsError(
-          ERROR_MESSAGES.NO_CREDITS_REMAINING,
-          CREDITS_PER_MESSAGE,
-          access.data?.balance || 0 
-        );
-      }
-    } catch (err) {
-      console.error('Failed to check access:', err);
-      if (err instanceof InsufficientCreditsError) {
-        throw err; // Re-throw our custom errors
-      }
-      throw new ExternalServiceError('Unable to verify credits. Please try again', 'autumn');
+    // Check if user has enough credits
+    const creditCheck = await checkCredits(sessionResponse.user.id, CREDITS_PER_MESSAGE);
+    
+    if (!creditCheck.hasEnough) {
+      throw new InsufficientCreditsError(
+        ERROR_MESSAGES.NO_CREDITS_REMAINING,
+        CREDITS_PER_MESSAGE,
+        creditCheck.balance.totalBalance
+      );
     }
 
-    // Track API usage with Autumn
-    try {
-      await autumn.track({
-        customer_id: sessionResponse.user.id,
-        feature_id: FEATURE_ID_MESSAGES,
-        count: CREDITS_PER_MESSAGE,
-      });
-    } catch (err) {
-      console.error('Failed to track usage:', err);
-      throw new ExternalServiceError('Unable to process credit usage. Please try again', 'autumn');
-    }
+    // Deduct credits (wallet first, then subscription)
+    const messageId = crypto.randomUUID();
+    await deductCredits(
+      sessionResponse.user.id,
+      CREDITS_PER_MESSAGE,
+      'Chat message',
+      messageId,
+      {
+        type: 'chat_message',
+        conversationId: conversationId || 'new',
+      }
+    );
 
     // Get or create conversation
     let currentConversation;

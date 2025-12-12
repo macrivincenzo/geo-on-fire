@@ -5,7 +5,6 @@ import { AuthenticationError, handleApiError } from '@/lib/api-errors';
 
 export async function GET(request: NextRequest) {
   try {
-    // Get the session
     const sessionResponse = await auth.api.getSession({
       headers: request.headers,
     });
@@ -14,16 +13,11 @@ export async function GET(request: NextRequest) {
       throw new AuthenticationError('Please log in to view your credits');
     }
 
-    // Get combined balance (wallet + subscription)
     const balance = await getCreditBalance(sessionResponse.user.id);
 
-    return NextResponse.json({
-      allowed: balance.totalBalance > 0,
-      balance: balance.totalBalance,
-      walletBalance: balance.walletBalance,
-      subscriptionBalance: balance.subscriptionBalance,
-    });
+    return NextResponse.json(balance);
   } catch (error) {
     return handleApiError(error);
   }
 }
+

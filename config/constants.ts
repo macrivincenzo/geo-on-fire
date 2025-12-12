@@ -2,6 +2,13 @@
 // This file contains all configuration values that were previously hardcoded throughout the codebase
 
 // ============================================
+// App Branding
+// ============================================
+export const APP_NAME = 'GEO on Fire';
+export const APP_DESCRIPTION = 'Generative Engine Optimization Platform';
+export const APP_TAGLINE = 'Optimize your content so AI platforms cite and recommend your brand';
+
+// ============================================
 // Feature IDs and Identifiers
 // ============================================
 export const FEATURE_ID_MESSAGES = 'messages';

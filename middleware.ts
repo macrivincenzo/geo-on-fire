@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSessionCookie } from 'better-auth/cookies';
+import { parseAffiliateParams, setAffiliateCookie, trackAffiliateVisit } from '@/lib/affiliate-tracker';
 
 // Define protected routes
 const protectedRoutes = ['/dashboard', '/chat', '/brand-monitor'];
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const url = request.nextUrl;
   
   // Check if the route is protected
   const isProtectedRoute = protectedRoutes.some(route => 
@@ -18,13 +20,31 @@ export async function middleware(request: NextRequest) {
     
     if (!sessionCookie) {
       // Redirect to login with return URL
-      const url = new URL('/login', request.url);
-      url.searchParams.set('from', pathname);
-      return NextResponse.redirect(url);
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('from', pathname);
+      return NextResponse.redirect(loginUrl);
     }
   }
 
   const response = NextResponse.next();
+  
+  // Handle affiliate tracking
+  const affiliateParams = parseAffiliateParams(url.searchParams);
+  if (affiliateParams) {
+    // Set affiliate cookie
+    const cookieHeader = setAffiliateCookie(affiliateParams);
+    response.headers.append('Set-Cookie', cookieHeader);
+
+    // Track affiliate visit (async, don't wait)
+    trackAffiliateVisit(affiliateParams, {
+      url: url.toString(),
+      referrer: request.headers.get('referer') || undefined,
+      ipAddress: request.headers.get('x-forwarded-for') || request.ip || undefined,
+      userAgent: request.headers.get('user-agent') || undefined,
+    }).catch((error) => {
+      console.error('Failed to track affiliate visit:', error);
+    });
+  }
   
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');

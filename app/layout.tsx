@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SaaS Starter",
-  description: "Next.js SaaS Starter with Better Auth",
+  title: "GEO on Fire - Generative Engine Optimization Platform",
+  description: "Optimize your content so AI platforms (ChatGPT, Claude, Perplexity) cite and recommend your brand. Track brand visibility, analyze competitors, and get actionable GEO insights.",
 };
 
 export default function RootLayout({

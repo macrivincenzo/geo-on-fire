@@ -24,6 +24,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Optimize for production
+  compress: true,
+  poweredByHeader: false,
+  // Environment variables that should be available on the client
+  env: {
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  },
 };
 
 export default nextConfig;

@@ -19,13 +19,13 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 animate-fade-in-up">
-              <span className="block text-zinc-900">FireGEO Monitor</span>
+              <span className="block text-zinc-900">GEO on Fire</span>
               <span className="block bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
-                AI Brand Visibility Platform
+                Generative Engine Optimization Platform
               </span>
             </h1>
             <p className="text-xl lg:text-2xl text-zinc-600 max-w-3xl mx-auto mb-6 animate-fade-in-up animation-delay-200">
-              Track how AI models rank your brand against competitors
+              Optimize your content so AI platforms cite and recommend your brand
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
               <Link
@@ -42,7 +42,7 @@ export default function Home() {
               </Link>
             </div>
             <p className="mt-6 text-sm text-zinc-500 animate-fade-in-up animation-delay-600">
-              Powered by AI • Real-time Analysis • Competitor Tracking • SEO Insights
+              ChatGPT • Claude • Perplexity • Brand Monitoring • Content Optimization • AI Visibility
             </p>
           </div>
 
@@ -76,10 +76,10 @@ export default function Home() {
           <div className="bg-gray-50 rounded-[30px] p-16">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-zinc-900 mb-4">
-                Monitor Your Brand Visibility
+                Optimize Your AI Brand Presence
               </h2>
               <p className="text-xl text-zinc-600">
-                Choose the plan that fits your monitoring needs
+                Choose the plan that fits your GEO optimization needs
               </p>
             </div>
 
@@ -210,10 +210,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-[30px] p-16 text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
-              See How AI Models Rank Your Brand
+              Get Your Brand Recommended by AI
             </h2>
             <p className="text-xl text-orange-100 mb-8">
-              Monitor your brand visibility across ChatGPT, Claude, Perplexity and more
+              Optimize your content for ChatGPT, Claude, Perplexity and other AI platforms
             </p>
             <Link
               href="/brand-monitor"
@@ -234,7 +234,7 @@ export default function Home() {
               Frequently asked questions
             </h2>
             <p className="text-xl text-zinc-600 animate-fade-in-up animation-delay-200">
-              Everything you need to know about FireGEO Monitor
+              Everything you need to know about GEO on Fire
             </p>
           </div>
 
@@ -246,7 +246,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  How does FireGEO Monitor work?
+                  How does GEO on Fire work?
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 0 ? 'rotate-180' : ''}`}
@@ -260,7 +260,7 @@ export default function Home() {
               {openFaq === 0 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    FireGEO Monitor analyzes your brand's visibility across major AI platforms like ChatGPT, Claude, and Perplexity. Simply enter your website URL, and we'll show you how AI models rank your brand against competitors, what prompts trigger your appearance, and provide actionable insights to improve your AI visibility.
+                    GEO on Fire helps you optimize your content for Generative Engine Optimization (GEO). We analyze how AI platforms like ChatGPT, Claude, and Perplexity perceive and recommend your brand. Simply enter your website URL, and we'll show you how AI models rank your brand, what prompts trigger your appearance, and provide actionable insights to improve your AI visibility and get more citations.
                   </p>
                 </div>
               )}
@@ -381,10 +381,10 @@ export default function Home() {
       <section className="py-24 bg-zinc-900">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Start Monitoring Your AI Brand Visibility
+            Start Optimizing Your AI Brand Presence
           </h2>
           <p className="text-xl text-zinc-400 mb-8">
-            Take control of how AI models present your brand
+            Get your brand recommended by AI platforms
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

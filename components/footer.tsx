@@ -17,7 +17,7 @@ export function Footer() {
               />
             </div>
             <p className="text-sm mb-4">
-              Turn websites into structured data. Built for AI apps and LLMs.
+              Optimize your content so AI platforms cite and recommend your brand. Generative Engine Optimization for the AI era.
             </p>
             <div className="flex space-x-4">
               <a
@@ -111,7 +111,7 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-zinc-200">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm">
-              © {new Date().getFullYear()} Firecrawl. All rights reserved.
+              © {new Date().getFullYear()} GEO on Fire. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-sm hover:text-zinc-900 transition-colors">

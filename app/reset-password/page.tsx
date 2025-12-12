@@ -133,13 +133,9 @@ function ResetPasswordForm() {
         <div className="max-w-md w-full space-y-8">
           <div>
             <div className="lg:hidden mb-8 flex justify-center">
-              <Image
-                src="/firecrawl-logo-with-fire.webp"
-                alt="Firecrawl"
-                width={180}
-                height={37}
-                priority
-              />
+              <span className="text-3xl font-bold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
+                GEO on Fire
+              </span>
             </div>
             <h2 className="text-center text-3xl font-extrabold text-gray-900">
               Reset your password
