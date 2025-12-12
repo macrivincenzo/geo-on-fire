@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { trackAffiliateConversion } from '@/lib/affiliate-tracker';
 import { handleApiError, ValidationError } from '@/lib/api-errors';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
     const { userId, conversionType, conversionValue, trackingId } = await request.json();
