@@ -1,6 +1,10 @@
 import { autumnHandler } from "autumn-js/next";
 import { auth } from "@/lib/auth";
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export const { GET, POST } = autumnHandler({
   identify: async (request) => {
     try {

@@ -3,7 +3,7 @@ import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { conversations, messages } from '@/lib/db/schema';
 import { eq, and, desc } from 'drizzle-orm';
-import { checkCredits, deductCredits } from '@/lib/credits-manager';
+import { checkCredits, deductCredits, getCreditBalance } from '@/lib/credits-manager';
 import { 
   AuthenticationError, 
   InsufficientCreditsError, 
@@ -19,6 +19,10 @@ import {
   ROLE_ASSISTANT,
   UI_LIMITS
 } from '@/config/constants';
+
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {
@@ -136,14 +140,11 @@ export async function POST(request: NextRequest) {
       })
       .returning();
 
-    // Get remaining credits from Autumn
+    // Get remaining credits using our credits manager
     let remainingCredits = 0;
     try {
-      const usage = await autumn.check({
-        customer_id: sessionResponse.user.id,
-        feature_id: FEATURE_ID_MESSAGES,
-      });
-      remainingCredits = usage.data?.balance || 0;
+      const balance = await getCreditBalance(sessionResponse.user.id);
+      remainingCredits = balance.totalBalance;
     } catch (err) {
       console.error('Failed to get remaining credits:', err);
     }

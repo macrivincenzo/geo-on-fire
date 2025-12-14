@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { handleApiError, AuthenticationError, ExternalServiceError } from '@/lib/api-errors';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
     // Get the session

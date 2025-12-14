@@ -4,6 +4,10 @@ import { db } from '@/lib/db';
 import { messageFeedback, messages } from '@/lib/db/schema';
 import { and, eq } from 'drizzle-orm';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 // POST /api/chat/feedback - Submit feedback for a message
 export async function POST(request: NextRequest) {
   try {

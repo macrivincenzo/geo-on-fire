@@ -5,6 +5,10 @@ import { getCreditPackage } from '@/config/credit-packages';
 import { AuthenticationError, ValidationError, handleApiError } from '@/lib/api-errors';
 import Stripe from 'stripe';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2024-12-18.acacia',
 });

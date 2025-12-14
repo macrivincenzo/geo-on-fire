@@ -5,6 +5,10 @@ import { brandAnalyses } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { handleApiError, AuthenticationError, NotFoundError } from '@/lib/api-errors';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 // GET /api/brand-monitor/analyses/[analysisId] - Get a specific analysis
 export async function GET(
   request: NextRequest,

@@ -16,6 +16,8 @@ import {
   SSE_MAX_DURATION
 } from '@/config/constants';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs'; // Use Node.js runtime for streaming
 export const maxDuration = 300; // 5 minutes
 

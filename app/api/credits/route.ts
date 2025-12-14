@@ -3,6 +3,10 @@ import { auth } from '@/lib/auth';
 import { getCreditBalance } from '@/lib/credits-manager';
 import { AuthenticationError, handleApiError } from '@/lib/api-errors';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET(request: NextRequest) {
   try {
     // Get the session

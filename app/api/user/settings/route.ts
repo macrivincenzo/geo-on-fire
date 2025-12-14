@@ -5,6 +5,10 @@ import { userSettings } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { handleApiError, AuthenticationError, ValidationError } from '@/lib/api-errors';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 // GET /api/user/settings - Get user settings
 export async function GET(request: NextRequest) {
   try {

@@ -11,6 +11,10 @@ import {
 } from '@/lib/api-errors';
 import { FEATURE_ID_MESSAGES } from '@/config/constants';
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const autumn = new Autumn({
   apiKey: process.env.AUTUMN_SECRET_KEY!,
 });
